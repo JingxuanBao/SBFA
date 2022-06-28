@@ -42,4 +42,4 @@ Input arguments:
 
 ```coffee
 c(rep(1,10),rep(0,5),rep(0,20))
-```.
+```
