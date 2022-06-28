@@ -32,11 +32,13 @@ loaded via a namespace (and not attached):
 ## SBFA usage
 Please refer to our [EXAMPLE](./R_main/Example.R).
 
+### Main function
+
 ```coffee
 SBFA_EM <- function(X,type,param,E,L,v1,v2,a_omega,b_omega,m.init=1,scale=T,W.init=NULL,eps=1e-3,maxIter=500)
 ```
 
-Input arguments: 
+#### Input arguments: 
 - X: Multiomics dataset with (number of rows = number of features) and (number of columns = number of subjects). This is a vertical concatenation of multiomics datasets. 
 
 *For example, if you want to extract the common information from presence of effect allele recoded genotyping data (0 = No effect allele, 1 = 1 or 2 effect alleles; assume we have 10 candidate SNVs), normalized gene expression data (5 genes), and normalized regional imaging volumetric changes measurements (20 region of interests), then the X matrix should contains (5+10+20=35) rows/features. Say if we can get the the data of all three modalities from 50 common subjects (no missing values), then the X matrix should contains 50 columns/subjects.*
@@ -114,4 +116,104 @@ c(rep(1,10),rep(1,5),rep(1,20))
 - eps: Convergence criteria. Defalt is 1e-3.
 
 - maxIter: Maximum iterations if not convergent. Defalt is 500.
+
+#### Output arguments: 
+- p: Number of features in X.
+
+- n: Number of subjects in X.
+
+- L: Number of latent dimension (same as input parameter L). 
+
+- E: Graph information (same as input parameter E).
+
+- m: Estimated location parameter.
+
+- W: Estimated factor loading matrix.
+
+- mu_alpha: Estimated mean for alpha parameter (intemediate results).
+
+- mu_rho: Estimated mean for rho parameter (intemediate results).
+
+- mu_Z: Estimated factor matrix.
+
+- Sigma_alpha: Estimated variance-covariance matrix for alpha (intemediate results).
+
+- Sigma_Z: Estimated variance-covariance matrix for Z (intemediate results).
+
+- Omega: Estimated Omega matrix (biological knowledge information, intemediate results).
+
+- BIC: BIC.
+
+- iter: Number of iteration (either the iteration that each the convergence criteria or the maximum iteration).
+
+**Note: The extracted common information shared by multiomics datasets is mu_Z. You may want to use mu_Z as input for you subsequent machine learning prediction/clustering problems. To reconstruct the mean matrix, you can use the follow code:**
+
+```coffee
+SBFA_Output <- SBFA_EM(X,type,param,E,L,v1,v2,a_omega,b_omega,m.init=1,scale=T,W.init=NULL,eps=1e-3,maxIter=500)
+mu <- SBFA_Output$W %*% SBFA_Output$mu_Z + SBFA_Output$m
+```
+
+### Implemented tuning function based on BIC
+
+```coffee
+SBFA_EM_AUTOT <- function(X,type,param,E,L,v1,v2,a_omega,b_omega,m.init=1,scale=T,W.init=NULL,eps=1e-3,maxIter=500)
+```
+
+Input arguments: 
+
+- X: Same as above.
+
+- type: Same as above.
+
+- param: Same as above.
+
+- E: Same as above.
+
+- L: Now it can take vector input. Each element of the vector means a candidate for the L parameter (described above) in tuning process. 
+
+- v1: Now it can take vector input. Each element of the vector means a candidate for the v1 parameter (described above) in tuning process. 
+
+- v2: Now it can take vector input. Each element of the vector means a candidate for the v2 parameter (described above) in tuning process. 
+
+- a_omega: Now it can take vector input. Each element of the vector means a candidate for the a_omega parameter (described above) in tuning process. 
+
+- b_omega: Now it can take vector input. Each element of the vector means a candidate for the b_omega parameter (described above) in tuning process. 
+
+- m.init: Same as above.
+
+- scale: Same as above.
+
+- W.init: Same as above.
+
+- eps: Same as above.
+
+- maxIter: Same as above.
+
+#### Output arguments: 
+- tuningProcess: A table gives you the BIC for each combination of candidate hyperparameters.
+
+- bestIter: Which combination of hyperparameter gives you the lowest BIC value (bestIter corresponds to the column of tuningProcess table).
+
+- bestBIC: The BIC value you get from the best tunning result. 
+
+- bestModel: The output from SBFA_EM function from the best tunning result.
+
+- bestL: L that gives you the best tunning result.
+
+- bestv1: v1 that gives you the best tunning result.
+
+- bestv2: v2 that gives you the best tunning result.
+
+- best_a_omega: a_omega that gives you the best tunning result.
+
+- best_b_omega: b_omega that gives you the best tunning result.
+
+**Note: The extracted common information shared by multiomics datasets is bestModel$mu_Z. You may want to use bestModel$mu_Z as input for you subsequent machine learning prediction/clustering problems. To reconstruct the mean matrix, you can use the follow code:**
+
+```coffee
+SBFA_tunning_Output <- SBFA_EM_AUTOT(X,type,param,E,L,v1,v2,a_omega,b_omega,m.init=1,scale=T,W.init=NULL,eps=1e-3,maxIter=500)
+mu <- SBFA_tunning_Output$bestModel$W %*% SBFA_tunning_Output$bestModel$mu_Z + SBFA_tunning_Output$bestModel$m
+```
+
+
 
