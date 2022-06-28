@@ -30,4 +30,6 @@ loaded via a namespace (and not attached):
 [31] generics_0.1.2     jsonlite_1.8.0     pkgconfig_2.0.3 
 ```
 ## SBFA usage
-Please refer to our [example](./R_main/Example.R) 
+Please refer to our [EXAMPLE](./R_main/Example.R).
+Input arguments: 
+- X: Multiomics dataset with (number of rows = number of features) and (number of columns = number of subjects). This is a vertical concatenation of multiomics datasets. 
