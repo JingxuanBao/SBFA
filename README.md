@@ -39,6 +39,7 @@ Input arguments:
 - type: A vector of length equal to number of features, indicating the underlying distribution for each feature. Each element of the feature is 0, 1, or 2 (0=Normal distribution; 1=Binomial distribution; 2=Negative binomial distribution). 
 
 ```In our example, since X matrix has 35 columns (10 presence of effect allele recoded genotyping data following Bernoulli distribution; 5 gene expression data following Gaussian distribution; 20 regional imaging measurements following Gaussian distribution), the input for type parameter will be'''
+
 '''coffee
 c(rep(1,10),rep(0,5),rep(0,20))
 ```.
