@@ -29,3 +29,5 @@ loaded via a namespace (and not attached):
 [26] vctrs_0.4.1        glue_1.6.2         stringi_1.7.6      compiler_4.2.0     pillar_1.7.0      
 [31] generics_0.1.2     jsonlite_1.8.0     pkgconfig_2.0.3 
 ```
+## SBFA usage
+Please refer to our [example](./R_main/Example.R) 
