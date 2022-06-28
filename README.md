@@ -31,15 +31,28 @@ loaded via a namespace (and not attached):
 ```
 ## SBFA usage
 Please refer to our [EXAMPLE](./R_main/Example.R).
+
+```coffee
+SBFA_EM <- function(X,type,param,E,L,v1,v2,a_omega,b_omega,m.init=1,scale=T,W.init=NULL,eps=1e-3,maxIter=500)
+```
+
 Input arguments: 
 - X: Multiomics dataset with (number of rows = number of features) and (number of columns = number of subjects). This is a vertical concatenation of multiomics datasets. 
 
 *For example, if you want to extract the common information from presence of effect allele recoded genotyping data (0 = No effect allele, 1 = 1 or 2 effect alleles; assume we have 10 candidate SNVs), normalized gene expression data (5 genes), and normalized regional imaging volumetric changes measurements (20 region of interests), then the X matrix should contains (5+10+20=35) rows/features. Say if we can get the the data of all three modalities from 50 common subjects (no missing values), then the X matrix should contains 50 columns/subjects.*
 
-- type: A vector of length equal to number of features, indicating the underlying distribution for each feature. Each element of the feature is 0, 1, or 2 (0=Normal distribution; 1=Binomial distribution; 2=Negative binomial distribution). 
+- type: A vector of length equal to number of features, indicating the underlying distribution for each feature. Each element of the feature is 0, 1, or 2 (0=Gaussian distribution; 1=Binomial distribution; 2=Negative binomial distribution). 
 
 *In our example, since X matrix has 35 columns (10 presence of effect allele recoded genotyping data following Bernoulli distribution; 5 gene expression data following Gaussian distribution; 20 regional imaging measurements following Gaussian distribution), the input for type parameter will be*
 
 ```coffee
 c(rep(1,10),rep(0,5),rep(0,20))
+```
+
+- param: A vector of length equal to number of features, indicating the necessary parameters of underlying distribution for each feature (Gaussian: the standard deviation of Gaussian distribution; Binomial: number of trails parameter; Negative binomial: number of successes parameter).
+
+*In our example, since X matrix has 35 columns (10 presence of effect allele recoded genotyping data following Bernoulli distribution, which is also binomial distribution with number of trails equal to 1; 5 gene expression data following Gaussian distribution - since the data has been normalized, the standard deviation is 1; 20 regional imaging measurements following Gaussian distribution - since the data has been normalized, the standard deviation is 1), the input for type parameter will be*
+
+```coffee
+c(rep(1,10),rep(1,5),rep(1,20))
 ```
