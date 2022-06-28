@@ -105,4 +105,13 @@ c(rep(1,10),rep(1,5),rep(1,20))
 
 *When reading data, different variables may in different scale. We may want to put all the variables in the same scale. For example, when we want to add penalty term to our model, the smaller scale variable tends to have larger penalty. So, it is often the case that we want to scale the variable. For the continuous variable like Gaussian distribution, it is easy to change the scale by just standardizing alll the variable. But for the discrete variable, it is no longer trivial to normalize, because when you multiple something, it won't be discrete any more. So, in our case, when we scale the variables, we didn't scale the matrix X. Instead, we scale the matrix mu. Our approach is to calculate the standard deviation of transformed data of X.*
 
-W.init=NULL,eps=1e-3,maxIter=500
+- W.init: Initialization of factor loading matrix W. Defalt is NULL, which means the algorithm will use SVD decomposition to initialize W.
+
+*The factor analysis problems suffer from an identification problem: As long as WxZ is the same, there is no difference. For example, we can multiply some matrix to W and then multiple the inverse of the matrix to Z. Then the resulting matrix mu is the same. There are multiple solutions to the identification problem such as put some penalty (it may give unique solution but it cannot guarantee to find the unique solution because of lots of local optimal solution). Thus, because of the identification problem and the unique solution problem, it is important for us to start with a good initial value. Random initialization implies random solution.*
+
+*In our setting, we choose W and Z matrices close to orthogonal matrices. We do svd to the original matrix X and assign the LHS to be W and RHS to be Z. In this way we can easily find the good initial value for W and Z. This is not always the case. But if we choose the W and Z to be close to orthogonal matrix, then the SVD gives a reasonably good initial values.*
+
+- eps: Convergence criteria. Defalt is 1e-3.
+
+- maxIter: Maximum iterations if not convergent. Defalt is 500.
+
