@@ -33,10 +33,6 @@ loaded via a namespace (and not attached):
 Please refer to our [EXAMPLE](./R_main/Example.R).
 Input arguments: 
 - X: Multiomics dataset with (number of rows = number of features) and (number of columns = number of subjects). This is a vertical concatenation of multiomics datasets. 
-```
-For example, if you want to extract the common information from presence of effect allele recoded genotyping data (0 = No effect allele, 1 = 1 or 2 effect alleles; assume we have 10 candidate SNVs), normalized gene expression data (5 genes), and normalized regional imaging volumetric changes measurements (20 region of interests), then the X matrix should contains (5+10+20=35) rows/features. Say if we can get the the data of all three modalities from 50 common subjects (no missing values), then the X matrix should contains 50 columns/subjects.
-```
+```For example, if you want to extract the common information from presence of effect allele recoded genotyping data (0 = No effect allele, 1 = 1 or 2 effect alleles; assume we have 10 candidate SNVs), normalized gene expression data (5 genes), and normalized regional imaging volumetric changes measurements (20 region of interests), then the X matrix should contains (5+10+20=35) rows/features. Say if we can get the the data of all three modalities from 50 common subjects (no missing values), then the X matrix should contains 50 columns/subjects.```
 - type: A vector of length equal to number of features, indicating the underlying distribution for each feature. Each element of the feature is 0, 1, or 2 (0=Normal distribution; 1=Binomial distribution; 2=Negative binomial distribution). 
-```
-In our example, since X matrix has 35 columns (10 presence of effect allele recoded genotyping data following Bernoulli distribution; 5 gene expression data following Gaussian distribution; 20 regional imaging measurements following Gaussian distribution), the input for type parameter is 
-```
+```In our example, since X matrix has 35 columns (10 presence of effect allele recoded genotyping data following Bernoulli distribution; 5 gene expression data following Gaussian distribution; 20 regional imaging measurements following Gaussian distribution), the input for type parameter is ```
