@@ -30,7 +30,7 @@ loaded via a namespace (and not attached):
 [31] generics_0.1.2     jsonlite_1.8.0     pkgconfig_2.0.3 
 ```
 ## SBFA usage
-Please refer to our [EXAMPLE](./R_main/Example.R).
+Please refer to our [EXAMPLE](./R_main/Example.R). All functions are included in folder [R_main](./R_main).
 
 ### Main function
 
