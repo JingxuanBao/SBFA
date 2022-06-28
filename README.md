@@ -56,3 +56,26 @@ c(rep(1,10),rep(0,5),rep(0,20))
 ```coffee
 c(rep(1,10),rep(1,5),rep(1,20))
 ```
+- E: A two-column matrix with number of rows equal to total number of edges. 
+
+*In our example, we assume 1) SNV1 (1st row in X), SNV3 (3rd row in X), SNV4 (4th row in X) are in the same LD block; and all the other SNVs are in different LD block (also different from SNV1, SNV3, and SNV4). 2) gene1 (11th row in X) and gene3 (13th row in X) are in the same pathway or enriched by the same module; and all the other genes are in different pathways (also different from gene1 and gene3 pathway). 3) region3 (18th row in X) and region5 (20th row in X) are in the same brain tissue; region2 (17th row in X), region7 (22th row in X) and region10 (25th row in X) are in the another brain tissue; all the other regions are in different brain tissue and different from either regioin3/region5 tissue or region2/region7/region10 tissue. Then the E matrix would be:*
+
+```coffee
+       [,1] [,2]
+  [1,]    1    3
+  [2,]    1    4
+  [3,]    3    4
+  [4,]   11   13
+  [5,]   18   20 
+  [6,]   17   22
+  [7,]   17   25
+  [8,]   22   25
+  [9,]    3    1
+ [10,]    4    1
+ [11,]    4    2
+ [12,]   13   11
+ [13,]   20   18
+ [14,]   22   17
+ [15,]   25   17
+ [16,]   25   22
+```
