@@ -60,7 +60,7 @@ c(rep(1,10),rep(1,5),rep(1,20))
 
 *In our example, we assume 1) SNV1 (1st row in X), SNV3 (3rd row in X), SNV4 (4th row in X) are in the same LD block; and all the other SNVs are in different LD block (also different from SNV1, SNV3, and SNV4). 2) gene1 (11th row in X) and gene3 (13th row in X) are in the same pathway or enriched by the same module; and all the other genes are in different pathways (also different from gene1 and gene3 pathway). 3) region3 (18th row in X) and region5 (20th row in X) are in the same brain tissue; region2 (17th row in X), region7 (22th row in X) and region10 (25th row in X) are in the another brain tissue; all the other regions are in different brain tissue and different from either regioin3/region5 tissue or region2/region7/region10 tissue. Then the E matrix would be:*
 
-```coffee
+```console
        [,1] [,2]
   [1,]    1    3
   [2,]    1    4
@@ -79,3 +79,30 @@ c(rep(1,10),rep(1,5),rep(1,20))
  [15,]   25   17
  [16,]   25   22
 ```
+- L: A scalar, denotes the number of latent dimensions.
+
+*You may want to try different L and select the one gives you the lowest BIC. In our example, we can try 2,3,4 separately. For the tuning precess, please refer to SBFA_EM_AUTOT function*
+
+- v1: A scalar, controls the sparsity. 
+
+*You may want to try different v1 and select the one gives you the lowest BIC. In our example, we can try 3,4,5. For the tuning precess, please refer to SBFA_EM_AUTOT function. For the specific meaning of v1, please refer to our SBFA paper "Prior for λ: Incorporating Biological Knowledge" section.*
+
+- v2: A scalar, set as log2. 
+
+*Typically, you don't need to tune this parameter (but you can tune this parameter in our SBFA_EM_AUTOT function). For the specific meaning of v2, please refer to our SBFA paper "Prior for λ: Incorporating Biological Knowledge" section.*
+
+- a_omega: A sccalar, denotes how much weights you want to give to your graph information. Larger a_omega corresponds to larger weights. 
+
+*You can tune this parameter. In our example, we can fix it to be 3. For the tuning precess, please refer to SBFA_EM_AUTOT function. For the specific meaning of a_omega, please refer to our SBFA paper "Variational EM algorithm" section.*
+
+- b_omega: A sccalar, set as 1.
+
+*Typically, you don't need to tune this parameter (but you can tune this parameter in our SBFA_EM_AUTOT function). For the specific meaning of b_omega, please refer to our SBFA paper "Variational EM algorithm" section.*
+
+- m.init: A sccalar or a vector of length equal to number of features. It is the straitforward estimation of the location parameter *m* used as initialization. If it is a scalar, it can be 0 (all features have initialization location parameter 0), 1 (the location parameters for all features are estimated using trimed mean across all subjects), 2 (the location parameters for all features are estimated using median across all subjects), or 3 (the location parameters for all features are estimated using mean across all subjects). If it is a vector of length equal to number of features, each element corresponds to the initialization of location parameter for the corresponding feature. Default is 1.
+
+- scale: A boolean variable indicating whether you want to scale the data or not. Default is True.
+
+*When reading data, different variables may in different scale. We may want to put all the variables in the same scale. For example, when we want to add penalty term to our model, the smaller scale variable tends to have larger penalty. So, it is often the case that we want to scale the variable. For the continuous variable like Gaussian distribution, it is easy to change the scale by just standardizing alll the variable. But for the discrete variable, it is no longer trivial to normalize, because when you multiple something, it won't be discrete any more. So, in our case, when we scale the variables, we didn't scale the matrix X. Instead, we scale the matrix mu. Our approach is to calculate the standard deviation of transformed data of X.*
+
+W.init=NULL,eps=1e-3,maxIter=500
