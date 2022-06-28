@@ -40,6 +40,6 @@ Input arguments:
 
 *In our example, since X matrix has 35 columns (10 presence of effect allele recoded genotyping data following Bernoulli distribution; 5 gene expression data following Gaussian distribution; 20 regional imaging measurements following Gaussian distribution), the input for type parameter will be*
 
-'''coffee
+```coffee
 c(rep(1,10),rep(0,5),rep(0,20))
 ```.
