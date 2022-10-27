@@ -208,7 +208,7 @@ Input arguments:
 
 - best_b_omega: b_omega that gives you the best tunning result.
 
-**Note: The extracted common information shared by multiomics datasets is bestModel$mu_Z. You may want to use bestModel$mu_Z as input for you subsequent machine learning prediction/clustering problems. To reconstruct the mean matrix, you can use the follow code:**
+**Note: The extracted common information shared by multiomics datasets is bestModel$mu_Z. You may want to use bestModel$mu_Z as input for you subsequent machine learning prediction/clustering problems. To reconstruct the mean matrix, you can use the following code:**
 
 ```coffee
 SBFA_tunning_Output <- SBFA_EM_AUTOT(X,type,param,E,L,v1,v2,a_omega,b_omega,m.init=1,scale=T,W.init=NULL,eps=1e-3,maxIter=500)
