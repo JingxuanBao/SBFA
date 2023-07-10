@@ -1,6 +1,9 @@
 # SBFA
 Integrative Analysis of Multi-omics and Imaging Data with Incorporation of Biological Information via Structural Bayesian Factor Analysis
 
+[LongLab@Penn](https://www.med.upenn.edu/long-lab/)
+[ShenLab@Penn](https://www.med.upenn.edu/shenlab/)
+
 ## R session infomation
 ```console
 R version 4.2.0 (2022-04-22 ucrt)
@@ -215,5 +218,7 @@ SBFA_tunning_Output <- SBFA_EM_AUTOT(X,type,param,E,L,v1,v2,a_omega,b_omega,m.in
 mu <- SBFA_tunning_Output$bestModel$W %*% SBFA_tunning_Output$bestModel$mu_Z + SBFA_tunning_Output$bestModel$m
 ```
 
+# Acknowledgement
 
+This study was partly supported by NIH grants RF1AG063481, R01AG071174, R01 AG071470, U01 AG066833 and U01 AG068057. Data used in this study were obtained from the Alzheimer's Disease Neuroimaging Initiative database (adni.loni.usc.edu), which was funded by NIH U01AG024904. 
 
